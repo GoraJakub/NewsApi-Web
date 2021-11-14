@@ -9,6 +9,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { dark } from '@mui/material/styles/createPalette';
 
 const theme = createTheme({
   palette:{
@@ -19,7 +20,8 @@ const theme = createTheme({
     },
     secondary:{
       main: "#56494e",
-      light: "#a29c9b"
+      light: "#a29c9b",
+      dark: "#333",
     }
   }
 })
