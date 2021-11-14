@@ -1,7 +1,14 @@
-import { Checkbox } from '@mui/material';
-import Button from '@mui/material/Button';
+import Login from './components/Login/Login'
+import News from './components/News/News'
+import NoMatch from './components/NoMatch/NoMatch';
+import User from './components/User';
 import { createTheme, ThemeProvider} from '@mui/material/styles';
 import './index.css'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 
 const theme = createTheme({
   palette:{
@@ -21,7 +28,14 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        Project Setup
+        <Router>
+          <Routes>
+            <Route path='/user' element={<User/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/news' element={<News/>}/>
+            <Route path='*' element={<NoMatch/>}/>
+          </Routes>
+        </Router>
       </div>
     </ThemeProvider>
   );
