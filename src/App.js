@@ -2,15 +2,17 @@ import Login from './components/Login/Login'
 import News from './components/News/News'
 import NoMatch from './components/NoMatch/NoMatch';
 import User from './components/User/User';
-import Main from './components/Main/Main'
 import { createTheme, ThemeProvider} from '@mui/material/styles';
 import './index.css'
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Navigate
 } from "react-router-dom";
-import { UserProvider } from './context/userContext';
+import { UserProvider, useUser } from './context/userContext';
+import Header from './components/Header/Header';
+
 
 const theme = createTheme({
   palette:{
@@ -28,15 +30,18 @@ const theme = createTheme({
 })
 
 function App() {
- 
-
+ const {isLogged} = useUser()
+console.log(isLogged)
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
       <div className="App">
         <Router>
+        <Header/>
           <Routes>
-            <Route path="/" exact element={<Main/>}/>
+            <Route path="/" element={
+              isLogged ? <Navigate to="/news"/> : <Navigate to="/login"/>
+            }/>
             <Route path='/user' element={<User/>}/>
             <Route path='/news' element={<News/>}/>
             <Route path='/login' element={<Login/>}/>
