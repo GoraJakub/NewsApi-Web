@@ -7,11 +7,11 @@ import './index.css'
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Navigate
+  Route
 } from "react-router-dom";
 import { UserProvider, useUser } from './context/userContext';
 import Header from './components/Header/Header';
+import Main from './components/Main/Main';
 
 
 const theme = createTheme({
@@ -35,13 +35,11 @@ console.log(isLogged)
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-      <div className="App">
+      <div className="App" style={{backgroundColor: theme.palette.secondary.dark, minHeight: '100vh'}}>
         <Router>
         <Header/>
           <Routes>
-            <Route path="/" element={
-              isLogged ? <Navigate to="/news"/> : <Navigate to="/login"/>
-            }/>
+            <Route path="/" element={<Main/>}/>
             <Route path='/user' element={<User/>}/>
             <Route path='/news' element={<News/>}/>
             <Route path='/login' element={<Login/>}/>
