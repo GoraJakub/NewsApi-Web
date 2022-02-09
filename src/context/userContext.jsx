@@ -2,7 +2,9 @@ import { createContext, useContext, useState } from 'react';
 
 const userContext = createContext({
     login: '',
-    isLogged: false
+    isLogged: false,
+    name: '',
+    surname: ''
 })
 const userUpdateContext = createContext()
 
@@ -14,10 +16,10 @@ export function useUserUpdate() {
 }
 
 export function UserProvider({children}) {
-    const [user, setUser] = useState({user: '', isLogged: false})
+    const [user, setUser] = useState({user: '', isLogged: false, name: '', surname: ''})
 
-    const updateUser = (login, isLogged) =>{
-        setUser({login: login, isLogged: isLogged})
+    const updateUser = (login, isLogged, name, surname) =>{
+        setUser({login: login, isLogged: isLogged, name: name, surname: surname})
     }
 
     return (

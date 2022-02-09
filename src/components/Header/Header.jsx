@@ -94,8 +94,8 @@ const Header = () => {
               }}
             >
               {pages.map((page) => (
-                <Link to={page.link} className="link">
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                <Link key={page.name} to={page.link} className="link">
+                <MenuItem  onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
                 </Link>
@@ -147,8 +147,8 @@ const Header = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
                 >
-                {settings.map((setting) => (
-                  <Link to={setting?.link ? setting.link : ''} className="link"> 
+                {settings.map((setting,index) => (
+                  <Link to={setting?.link ? setting.link : ''} key={index} className="link"> 
                     <MenuItem key={setting.name} onClick={() => {handleCloseUserMenu(setting.cb);}}>
                       <Typography textAlign="center">{setting.name}</Typography>
                     </MenuItem>
