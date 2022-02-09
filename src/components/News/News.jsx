@@ -1,4 +1,4 @@
-import {  Container, LinearProgress, Typography} from "@mui/material"
+import {  Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, LinearProgress, TextField, Typography} from "@mui/material"
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { Navigate } from "react-router"
@@ -9,6 +9,8 @@ import NewNewsForm from "./NewNewsForm"
 import NewsItem from "./NewsItem"
 import { TransitionGroup } from 'react-transition-group';
 import useNotification from "../../hooks/useNotification"
+import DialogEdit from "../Dialog/DialogEdit"
+
 
 const News = ()=>{
     const user = useUser()
@@ -17,10 +19,21 @@ const News = ()=>{
     const [addedNews, setAddedNews] = useState(true)
     const { openNotification } = useNotification()
 
+    const [dialogData, setDialogData] = useState({})
+
+    const [openModal,setOpenModal] = useState(false)
+
     const handlePostNews = (message, severity) =>{
         setAddedNews(!addedNews)
         openNotification(message,severity)
     }
+    const handleClickOpen = () => {
+        setOpenModal(true);
+      };
+    
+      const handleClose = () => {
+        setOpenModal(false);
+      };
 
 
     useEffect(()=>{
@@ -55,12 +68,14 @@ const News = ()=>{
                 <NewNewsForm afterPostCallback={handlePostNews}/>
                 <TransitionGroup>
                     {news.map((item, index)=>(
-                        <NewsItem growDelay={index} key={index} id={item.id} header={item.header} title={item.title} content={item.content} author={item.author}/> 
+                        <NewsItem setDialogData={setDialogData} openModalFC={handleClickOpen} key={index} newsId={item.id} header={item.header} title={item.title} content={item.content} author={item.author}/> 
                     ))}
                 </TransitionGroup>
             </Container>
             </>
             }
+        <DialogEdit openModal={openModal} handleClose={handleClose} handleEditNews={handlePostNews} dialogData={dialogData}/>
+
         </Box>
     </>
     )
