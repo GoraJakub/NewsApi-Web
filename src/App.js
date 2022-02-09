@@ -12,6 +12,8 @@ import {
 import { UserProvider, useUser } from './context/userContext';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
+import { NotificationsContextProvider } from './context/notifications';
+import { Notification } from './components/Notofication/Notification.jsx';
 
 
 const theme = createTheme({
@@ -33,22 +35,25 @@ function App() {
  const {isLogged} = useUser()
 console.log(isLogged)
   return (
-    <ThemeProvider theme={theme}>
-      <UserProvider>
-      <div className="App" style={{backgroundColor: theme.palette.secondary.dark, minHeight: '100vh'}}>
-        <Router>
-        <Header/>
-          <Routes>
-            <Route path="/" element={<Main/>}/>
-            <Route path='/user' element={<User/>}/>
-            <Route path='/news' element={<News/>}/>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='*' element={<NoMatch/>}/>
-          </Routes>
-        </Router>
-      </div>
-      </UserProvider>
-    </ThemeProvider>
+    <NotificationsContextProvider>
+      <ThemeProvider theme={theme}>
+        <UserProvider>
+        <div className="App" style={{backgroundColor: theme.palette.secondary.dark, minHeight: '100vh'}}>
+          <Router>
+          <Header/>
+            <Routes>
+              <Route path="/" element={<Main/>}/>
+              <Route path='/user' element={<User/>}/>
+              <Route path='/news' element={<News/>}/>
+              <Route path='/login' element={<Login/>}/>
+              <Route path='*' element={<NoMatch/>}/>
+            </Routes>
+          </Router>
+          <Notification/>
+        </div>
+        </UserProvider>
+      </ThemeProvider>
+    </NotificationsContextProvider>
   );
 }
 

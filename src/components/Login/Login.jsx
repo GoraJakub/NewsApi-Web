@@ -5,6 +5,7 @@ import { useContext, useState } from "react"
 import { Navigate } from "react-router"
 import { useUser, useUserUpdate } from "../../context/userContext"
 import { fetchData } from "../../helpers/fetchData"
+import { staticGlobal } from "../../static/staticGlobal"
 
 
 
@@ -25,11 +26,12 @@ const Login = ()=>{
 
     const getUserData = async () => {
         try {
-            const {logged} = await fetchData('http://localhost:8088/auth/login','POST',{
+            const {logged} = await fetchData(`${staticGlobal.API_LINK}/auth/login`,'POST',{
                 login: login,
                 password: password
             })
-            updateUser(login,logged)
+            const {name, surname} = await fetchData(`${staticGlobal.API_LINK}/userDetails/${login}`, 'GET')
+            updateUser(login,logged,name,surname)
             console.log(user)
         }catch(e) {
             console.log(e)
