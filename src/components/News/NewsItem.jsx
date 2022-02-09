@@ -35,7 +35,7 @@ const ExpandMore = styled((props) => {
 
 
 
-const NewsItem = ({id, key, growDelay, header, title, content, author})=>{
+const NewsItem = ({newsId, key,header, title, content, author, openModalFC, setDialogData})=>{
     const [expanded, setExpanded] = useState(false);
     const {palette} = useContext(ThemeContext)
     const [anchorElOption, setAnchorElOption] = useState(null);
@@ -53,7 +53,7 @@ const NewsItem = ({id, key, growDelay, header, title, content, author})=>{
 
     const fetchComs = async () => {
         try {
-            const coms = await fetchData(`${staticGlobal.API_LINK}/news/commentsList/${id}`,'GET')
+            const coms = await fetchData(`${staticGlobal.API_LINK}/news/commentsList/${newsId}`,'GET')
             handleFetchComsSuccess(coms)
     
         }catch(e) {
@@ -77,8 +77,14 @@ const NewsItem = ({id, key, growDelay, header, title, content, author})=>{
     const handleOpenOption = (event) => {
         setAnchorElOption(event.currentTarget);
     };
-    const handleCloseOption = async (id) => {
+    const handleCloseOption = async (id,isModalOpen) => {
         setAnchorElOption(null);
+
+        if(isModalOpen) {
+          console.log(id)
+          setDialogData({header: header,title:title,content: content, id:newsId})
+          openModalFC()
+        }
 
         if(!id) return
 
@@ -121,12 +127,12 @@ const NewsItem = ({id, key, growDelay, header, title, content, author})=>{
                     horizontal: 'right',
                 }}
                 open={Boolean(anchorElOption)}
-                onClose={handleCloseOption}
+                onClose={()=>handleCloseOption()}
                 >
-                    <MenuItem key='1' onClick={handleCloseOption}>
+                    <MenuItem key='1' onClick={() => handleCloseOption(null,true)}>
                         <Typography textAlign="center">Edit post</Typography>
                     </MenuItem>
-                    <MenuItem key='2' onClick={() => handleCloseOption(id)}>
+                    <MenuItem key='2' onClick={() => handleCloseOption(newsId)}>
                         <Typography textAlign="center">Delete Post</Typography>
                     </MenuItem>
                 </Menu>
@@ -159,7 +165,7 @@ const NewsItem = ({id, key, growDelay, header, title, content, author})=>{
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-        <NewCommentForm postId={id} commentAddCallback={fetchComs}/>
+        <NewCommentForm postId={newsId} commentAddCallback={fetchComs}/>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
         <TransitionGroup>
           {console.log(comments, isFetched)}
@@ -167,7 +173,7 @@ const NewsItem = ({id, key, growDelay, header, title, content, author})=>{
                 <Comment author={com.author} key={index} content={com.content} comId={com.id} handleDelComCallback={fetchComs}/>
             ))
             :
-            console.log("XDDDDD")
+            ''
         }
         </TransitionGroup>
         </Collapse>
