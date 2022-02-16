@@ -5,6 +5,7 @@ import { useContext, useState } from "react"
 import { Navigate } from "react-router"
 import { useUser, useUserUpdate } from "../../context/userContext"
 import { fetchData } from "../../helpers/fetchData"
+import useNotification from "../../hooks/useNotification"
 import { staticGlobal } from "../../static/staticGlobal"
 
 
@@ -15,6 +16,7 @@ const Login = ()=>{
     const [password, setPassword] = useState('')
     const updateUser = useUserUpdate()
     const user = useUser()
+    const {openNotification} = useNotification()
 
     const updateLogin = (e) =>{
         setLogin(e.target.value)
@@ -32,9 +34,9 @@ const Login = ()=>{
             })
             const {name, surname} = await fetchData(`${staticGlobal.API_LINK}/userDetails/${login}`, 'GET')
             updateUser(login,logged,name,surname)
-            console.log(user)
+            openNotification('Logged successfully','success')
         }catch(e) {
-            console.log(e)
+            openNotification(e.message,'success')
         }
     }
 

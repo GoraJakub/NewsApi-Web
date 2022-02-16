@@ -81,7 +81,6 @@ const NewsItem = ({newsId, key,header, title, content, author, openModalFC, setD
         setAnchorElOption(null);
 
         if(isModalOpen) {
-          console.log(id)
           setDialogData({header: header,title:title,content: content, id:newsId})
           openModalFC()
         }
@@ -168,7 +167,6 @@ const NewsItem = ({newsId, key,header, title, content, author, openModalFC, setD
         <NewCommentForm postId={newsId} commentAddCallback={fetchComs}/>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
         <TransitionGroup>
-          {console.log(comments, isFetched)}
             {(isFetched) ? comments.map((com, index)=>(
                 <Comment author={com.author} key={index} content={com.content} comId={com.id} handleDelComCallback={fetchComs}/>
             ))

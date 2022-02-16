@@ -30,7 +30,6 @@ const Header = () => {
 
   const handleCloseUserMenu = (callback) => {
     setAnchorElUser(null);
-    console.log(callback)
     if (callback && typeof callback === 'function') callback()
   };
 

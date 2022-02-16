@@ -36,7 +36,7 @@ const NewNewsForm = ({afterPostCallback}) => {
             const {message} = await fetchData(`${staticGlobal.API_LINK}/news/add`, 'POST', postData)
             if(afterPostCallback) afterPostCallback(message,'success')
         }catch(e) {
-            console.log(e)
+            afterPostCallback(e.message,'success')
         }
     }
     return (

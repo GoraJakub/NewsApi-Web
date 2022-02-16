@@ -11,7 +11,6 @@ const DialogEdit = ({openModal, dialogData, handleClose, handleEditNews}) => {
     const [newNewsHeaderValue, setNewNewsHeaderValue] = useState('')
 
     const {openNotification} = useNotification()
-    console.log(dialogData)
 
     const handleNewNewsValue = (e) => {
         setNewNewsValue(e.target.value)

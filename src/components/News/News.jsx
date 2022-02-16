@@ -1,4 +1,4 @@
-import {  Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, LinearProgress, TextField, Typography} from "@mui/material"
+import { Container, LinearProgress, Typography} from "@mui/material"
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
 import { Navigate } from "react-router"
@@ -56,7 +56,7 @@ const News = ()=>{
     return (
     <>
     {!user.isLogged ? <Navigate to='/login'/> : ''}
-        <Box containet sx={{ width: '100%'}}>
+        <Box container sx={{ width: '100%'}}>
             {loading ?
              <LinearProgress/> : 
 

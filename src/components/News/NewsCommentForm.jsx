@@ -17,6 +17,7 @@ const NewCommentForm = ({postId, commentAddCallback}) => {
 
     const handleCommentSend = async (e) => {
         e.preventDefault()
+        if (!newComment) return
         try {
             const data = {content: newComment, author: `${user.name} ${user.surname}`, newsId: postId}
             const {message} = await fetchData(`${staticGlobal.API_LINK}/comments/add`,'POST', data)

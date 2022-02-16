@@ -9,11 +9,12 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { UserProvider, useUser } from './context/userContext';
+import { UserProvider } from './context/userContext';
 import Header from './components/Header/Header';
 import Main from './components/Main/Main';
 import { NotificationsContextProvider } from './context/notifications';
 import { Notification } from './components/Notofication/Notification.jsx';
+import UserDetails from './components/UserDetails/UserDetails';
 
 
 const theme = createTheme({
@@ -32,8 +33,6 @@ const theme = createTheme({
 })
 
 function App() {
- const {isLogged} = useUser()
-console.log(isLogged)
   return (
     <NotificationsContextProvider>
       <ThemeProvider theme={theme}>
@@ -46,6 +45,7 @@ console.log(isLogged)
               <Route path='/user' element={<User/>}/>
               <Route path='/news' element={<News/>}/>
               <Route path='/login' element={<Login/>}/>
+              <Route path="/userDetails/:user" element={<UserDetails/>}/>
               <Route path='*' element={<NoMatch/>}/>
             </Routes>
           </Router>
